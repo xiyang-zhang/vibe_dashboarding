@@ -56,7 +56,7 @@ def main():
     oracle['RetentionRate'] = oracle.RetainedUsers / oracle.EligibleUsers
     assert oracle.RetentionRate.between(0,1).all()
     oracle.to_csv(DOCS/'cohort_reconciliation.csv', index=False)
-    inputs = prepare(schema, metrics, DATA)
+    inputs = prepare(schema, metrics, Path('C:/PowerBI/vibe_dashboard_2026/data/vibe_dashboarding_test'))
     inputs['tables'][0]['columns']['SignupCohort'] = 'date'
     inputs['tables'][0]['m'] = inputs['tables'][0]['m'].replace('in\n    Typed', '    , Cohort = Table.AddColumn(Typed, "SignupCohort", each Date.StartOfMonth([SignupDate]), type date)\nin\n    Cohort')
     date = next(t for t in inputs['tables'] if t['name']=='Date')
