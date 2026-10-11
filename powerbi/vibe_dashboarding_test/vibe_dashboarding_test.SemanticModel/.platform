@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "vibe_dashboarding_test"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e4736caa-2a16-40a4-acfb-634209be69e9"
+  }
+}

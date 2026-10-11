@@ -1,16 +1,136 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "cd539e3c9cd9e3a7af49",
   "position": {
     "x": 1712,
     "y": 744,
-    "width": 808,
-    "height": 552,
     "z": 7,
+    "height": 552,
+    "width": 808,
     "tabOrder": 7
   },
   "visual": {
     "visualType": "pivotTable",
+    "query": {
+      "queryState": {
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Users"
+                    }
+                  },
+                  "Property": "SignupCohort"
+                }
+              },
+              "queryRef": "Users.SignupCohort",
+              "nativeQueryRef": "SignupCohort",
+              "active": true
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CohortAge"
+                    }
+                  },
+                  "Property": "Age"
+                }
+              },
+              "queryRef": "CohortAge.Age",
+              "nativeQueryRef": "Age",
+              "active": false
+            }
+          ]
+        },
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Users"
+                    }
+                  },
+                  "Property": "Cohort Size"
+                }
+              },
+              "queryRef": "Users.Cohort Size",
+              "nativeQueryRef": "Cohort Size"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CohortActivity"
+                    }
+                  },
+                  "Property": "Retained Users"
+                }
+              },
+              "queryRef": "CohortActivity.Retained Users",
+              "nativeQueryRef": "Retained Users"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "CohortActivity"
+                    }
+                  },
+                  "Property": "Retention Rate"
+                }
+              },
+              "queryRef": "CohortActivity.Retention Rate",
+              "nativeQueryRef": "Retention Rate"
+            }
+          ]
+        }
+      }
+    },
+    "expansionStates": [
+      {
+        "roles": [
+          "Rows"
+        ],
+        "levels": [
+          {
+            "queryRefs": [
+              "Users.SignupCohort"
+            ],
+            "isCollapsed": true,
+            "identityKeys": [
+              {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Users"
+                    }
+                  },
+                  "Property": "SignupCohort"
+                }
+              }
+            ],
+            "isPinned": true
+          },
+          {
+            "queryRefs": [
+              "CohortAge.Age"
+            ],
+            "isCollapsed": true,
+            "isPinned": true
+          }
+        ],
+        "root": {}
+      }
+    ],
     "objects": {
       "columnHeaders": [
         {
@@ -338,88 +458,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
-    "query": {
-      "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Users"
-                    }
-                  },
-                  "Property": "SignupCohort"
-                }
-              },
-              "queryRef": "Users.SignupCohort",
-              "nativeQueryRef": "SignupCohort"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "CohortAge"
-                    }
-                  },
-                  "Property": "Age"
-                }
-              },
-              "queryRef": "CohortAge.Age",
-              "nativeQueryRef": "Age"
-            }
-          ]
-        },
-        "Values": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Users"
-                    }
-                  },
-                  "Property": "Cohort Size"
-                }
-              },
-              "queryRef": "Users.Cohort Size",
-              "nativeQueryRef": "Cohort Size"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "CohortActivity"
-                    }
-                  },
-                  "Property": "Retained Users"
-                }
-              },
-              "queryRef": "CohortActivity.Retained Users",
-              "nativeQueryRef": "Retained Users"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "CohortActivity"
-                    }
-                  },
-                  "Property": "Retention Rate"
-                }
-              },
-              "queryRef": "CohortActivity.Retention Rate",
-              "nativeQueryRef": "Retention Rate"
-            }
-          ]
-        }
-      }
-    }
+    "drillFilterOtherVisuals": true
   }
 }

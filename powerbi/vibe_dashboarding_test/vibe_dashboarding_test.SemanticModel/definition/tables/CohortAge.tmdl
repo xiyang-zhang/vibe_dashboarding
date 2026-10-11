@@ -1,8 +1,10 @@
 /// Synthetic Data — For Demonstration Only; CohortAge local Import table.
 table CohortAge
+	lineageTag: c2a33780-0fee-4149-a1e0-1440e4581351
 
 	column Age
 		dataType: int64
+		lineageTag: 2ba026ee-4870-4e33-b837-711d017cdc1a
 		summarizeBy: none
 		sourceColumn: Age
 
@@ -15,3 +17,4 @@ table CohortAge
 				    Typed = Table.TransformColumnTypes(Headers, {{"Age", Int64.Type}}, "en-US")
 				in
 				    Typed
+

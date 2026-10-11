@@ -1,0 +1,18 @@
+name: vibe_dashboard_2026
+version: 1.0.0
+description: APM project for vibe_dashboard_2026
+author: Developer
+# Which agent platforms to deploy to.
+# Resolution order: --target flag > this field > auto-detect from filesystem.
+# Accepted values: agent-skills, antigravity, claude, codex, copilot, cursor, gemini, grok-build, hermes, kiro, opencode, vscode, windsurf
+targets:
+  - codex
+dependencies:
+  apm:
+    - git: microsoft/skills-for-fabric
+      skills:
+        - powerbi-report-cli
+        - semantic-model-authoring
+  mcp: []
+includes: auto
+scripts: {}
