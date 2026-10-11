@@ -1,0 +1,215 @@
+{
+  "parameter": {
+    "name": "pMockDataRoot",
+    "m": "\"C:/PowerBI/vibe_dashboard_2026/data/vibe_dashboarding_test\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+  },
+  "tables": [
+    {
+      "name": "Users",
+      "columns": {
+        "UserId": "int64",
+        "Segment": "string",
+        "SignupDate": "date",
+        "SignupCohort": "date"
+      },
+      "hidden_columns": [
+        "UserId"
+      ],
+      "partition_mode": "import",
+      "m": "let\n    Source = Csv.Document(File.Contents(pMockDataRoot & \"/Users.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"UserId\", Int64.Type}, {\"Segment\", type text}, {\"SignupDate\", type date}}, \"en-US\")\n    , Cohort = Table.AddColumn(Typed, \"SignupCohort\", each Date.StartOfMonth([SignupDate]), type date)\nin\n    Cohort"
+    },
+    {
+      "name": "Date",
+      "columns": {
+        "Date": "date",
+        "Year": "int64",
+        "Month": "int64",
+        "MonthName": "string",
+        "MonthStart": "date"
+      },
+      "hidden_columns": [],
+      "partition_mode": "import",
+      "m": "let\n    Source = Csv.Document(File.Contents(pMockDataRoot & \"/Date.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"Date\", type date}, {\"Year\", Int64.Type}, {\"Month\", Int64.Type}, {\"MonthName\", type text}}, \"en-US\")\n    , Months = Table.AddColumn(Typed, \"MonthStart\", each Date.StartOfMonth([Date]), type date)\nin\n    Months"
+    },
+    {
+      "name": "Events",
+      "columns": {
+        "EventId": "int64",
+        "UserId": "int64",
+        "Date": "date",
+        "Converted": "int64",
+        "RevenueCents": "int64",
+        "SessionMinutes": "double"
+      },
+      "hidden_columns": [
+        "EventId",
+        "UserId",
+        "Date"
+      ],
+      "partition_mode": "import",
+      "m": "let\n    Source = Csv.Document(File.Contents(pMockDataRoot & \"/Events.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"EventId\", Int64.Type}, {\"UserId\", Int64.Type}, {\"Date\", type date}, {\"Converted\", Int64.Type}, {\"RevenueCents\", Int64.Type}, {\"SessionMinutes\", type number}}, \"en-US\")\nin\n    Typed"
+    },
+    {
+      "name": "CohortActivity",
+      "columns": {
+        "UserId": "int64",
+        "Age": "int64",
+        "Active": "int64"
+      },
+      "hidden_columns": [
+        "UserId",
+        "Age",
+        "Active"
+      ],
+      "partition_mode": "import",
+      "m": "let\n    Source = Csv.Document(File.Contents(pMockDataRoot & \"/CohortActivity.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"UserId\", Int64.Type}, {\"Age\", Int64.Type}, {\"Active\", Int64.Type}}, \"en-US\")\nin\n    Typed"
+    },
+    {
+      "name": "CohortAge",
+      "columns": {
+        "Age": "int64"
+      },
+      "hidden_columns": [],
+      "partition_mode": "import",
+      "m": "let\n    Source = Csv.Document(File.Contents(pMockDataRoot & \"/CohortAge.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),\n    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),\n    Typed = Table.TransformColumnTypes(Headers, {{\"Age\", Int64.Type}}, \"en-US\")\nin\n    Typed"
+    }
+  ],
+  "relationships": [
+    {
+      "from_table": "Events",
+      "from_column": "UserId",
+      "to_table": "Users",
+      "to_column": "UserId",
+      "cardinality": "many-to-one"
+    },
+    {
+      "from_table": "Events",
+      "from_column": "Date",
+      "to_table": "Date",
+      "to_column": "Date",
+      "cardinality": "many-to-one"
+    },
+    {
+      "from_table": "CohortActivity",
+      "from_column": "UserId",
+      "to_table": "Users",
+      "to_column": "UserId"
+    },
+    {
+      "from_table": "CohortActivity",
+      "from_column": "Age",
+      "to_table": "CohortAge",
+      "to_column": "Age"
+    }
+  ],
+  "measures": [
+    {
+      "name": "Revenue",
+      "table": "Events",
+      "dax": "DIVIDE(SUM(Events[RevenueCents]), 100)",
+      "format": "$#,##0.00",
+      "folder": "Revenue",
+      "grain": "event",
+      "contract": "Sum event revenue cents / 100; zero for nonconversion",
+      "oracle": "revenue"
+    },
+    {
+      "name": "Active Users",
+      "table": "Events",
+      "dax": "DISTINCTCOUNT(Events[UserId])",
+      "format": "#,##0",
+      "folder": "Activity",
+      "grain": "user in date filter",
+      "contract": "Distinct event users in current filter; non-additive",
+      "oracle": "active_users"
+    },
+    {
+      "name": "Conversions",
+      "table": "Events",
+      "dax": "SUM(Events[Converted])",
+      "format": "#,##0",
+      "folder": "Conversion",
+      "grain": "event",
+      "contract": "Converted eligible sessions",
+      "oracle": "conversions"
+    },
+    {
+      "name": "Conversion Rate",
+      "table": "Events",
+      "dax": "DIVIDE([Conversions], COUNTROWS(Events))",
+      "format": "0.0%",
+      "folder": "Conversion",
+      "grain": "event",
+      "contract": "Converted sessions / eligible sessions; blank if no sessions",
+      "oracle": "conversion_rate"
+    },
+    {
+      "name": "ARPU",
+      "table": "Events",
+      "dax": "DIVIDE([Revenue], [Active Users])",
+      "format": "$0.00",
+      "folder": "Revenue",
+      "grain": "active user",
+      "contract": "Revenue / distinct active users; blank if no active users",
+      "oracle": "arpu"
+    },
+    {
+      "name": "Session Length",
+      "table": "Events",
+      "dax": "AVERAGE(Events[SessionMinutes])",
+      "format": "0.0",
+      "folder": "Activity",
+      "grain": "session",
+      "contract": "Mean non-null session minutes",
+      "oracle": "session_length"
+    },
+    {
+      "name": "Sessions",
+      "table": "Events",
+      "dax": "COUNTROWS(Events)",
+      "format": "#,##0",
+      "folder": "Activity",
+      "contract": "Eligible event sessions in current filter."
+    },
+    {
+      "name": "Cohort Size",
+      "table": "Users",
+      "dax": "COUNTROWS(Users)",
+      "format": "#,##0",
+      "folder": "Retention",
+      "contract": "All enrolled users in selected cohort and segment."
+    },
+    {
+      "name": "Eligible Cohort Users",
+      "table": "CohortActivity",
+      "dax": "CALCULATE(DISTINCTCOUNT(CohortActivity[UserId]), REMOVEFILTERS('Date'))",
+      "format": "#,##0",
+      "folder": "Retention",
+      "contract": "Distinct enrolled users with an observed age cell; excludes future cohort-age combinations."
+    },
+    {
+      "name": "Retained Users",
+      "table": "CohortActivity",
+      "dax": "VAR Eligible = [Eligible Cohort Users] RETURN IF(ISBLANK(Eligible), BLANK(), COALESCE(CALCULATE(DISTINCTCOUNT(CohortActivity[UserId]), CohortActivity[Active] = 1, REMOVEFILTERS('Date')), 0))",
+      "format": "#,##0",
+      "folder": "Retention",
+      "contract": "Distinct cohort users active in observed age months; zero if observed but inactive, blank if future."
+    },
+    {
+      "name": "Retention Rate",
+      "table": "CohortActivity",
+      "dax": "DIVIDE([Retained Users], [Eligible Cohort Users])",
+      "format": "0.0%",
+      "folder": "Retention",
+      "contract": "Distinct retained population / distinct eligible cohort population; totals recompute both sets."
+    }
+  ],
+  "date_table": {
+    "table": "Date",
+    "column": "Date",
+    "sort_by": {
+      "MonthName": "Month"
+    }
+  },
+  "verification": "Authoring inputs only; TMDL, DAX, processing and Desktop NOT VERIFIED"
+}

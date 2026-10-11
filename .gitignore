@@ -1,0 +1,30 @@
+
+# APM dependencies
+apm_modules/
+
+# Python and local development
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.tmp
+
+# Power BI local caches, recovery and machine-specific authoring inputs
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/editorSettings.json
+**/.pbi/unappliedChanges.json
+**/AutoRecovery/
+docs/model_authoring_inputs.json
+
+# Local credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Downloaded local authoring and validation dependencies
+.tools/
+node_modules/
+.pnpm-store/

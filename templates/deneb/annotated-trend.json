@@ -1,0 +1,11 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"name": "dataset"},
+  "mark": {"type": "line", "point": true, "tooltip": true},
+  "encoding": {
+    "x": {"field": "Date", "type": "temporal"},
+    "y": {"field": "Revenue", "type": "quantitative"},
+    "color": {"value": "#2563EB"},
+    "tooltip": [{"field": "Date", "type": "temporal"}, {"field": "Revenue", "format": ",.2f"}]
+  }
+}

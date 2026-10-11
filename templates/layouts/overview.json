@@ -1,0 +1,11 @@
+{
+  "canvas": {"width": 1280, "height": 720},
+  "panels": [
+    {"id": "header", "x": 24, "y": 16, "width": 1232, "height": 64},
+    {"id": "kpis", "x": 24, "y": 96, "width": 1232, "height": 112, "columns": 4, "gap": 16},
+    {"id": "trend", "x": 24, "y": 224, "width": 800, "height": 264},
+    {"id": "segment", "x": 840, "y": 224, "width": 416, "height": 264},
+    {"id": "breakdown", "x": 24, "y": 504, "width": 1232, "height": 152},
+    {"id": "footer", "x": 24, "y": 672, "width": 1232, "height": 32, "text": "Synthetic Data — For Demonstration Only"}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "measures": 11,
+  "import_refresh": "NOT VERIFIED",
+  "tables": 5,
+  "status": "PASS",
+  "relationships": 4,
+  "dax_engine": "NOT VERIFIED",
+  "check": "TMDL deserialize, resolve relationship references and serialize through TOM",
+  "library": "Microsoft.AnalysisServices 19.118.3"
+}

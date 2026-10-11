@@ -1,0 +1,159 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "dataset"
+  },
+  "width": "container",
+  "height": "container",
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "#161D44",
+  "padding": 24,
+  "transform": [
+    {
+      "filter": "isValid(datum[\"Retention Rate\"])"
+    },
+    {
+      "calculate": "timeFormat(toDate(datum.SignupCohort), \"%b %Y\")",
+      "as": "Cohort"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Age",
+      "type": "ordinal",
+      "sort": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "title": "Months since signup",
+      "axis": {
+        "labelAngle": 0
+      }
+    },
+    "y": {
+      "field": "Cohort",
+      "type": "ordinal",
+      "sort": [
+        "Jan 2026",
+        "Feb 2026",
+        "Mar 2026",
+        "Apr 2026",
+        "May 2026",
+        "Jun 2026"
+      ],
+      "title": "Signup cohort"
+    },
+    "tooltip": [
+      {
+        "field": "Cohort",
+        "type": "nominal",
+        "title": "Signup cohort"
+      },
+      {
+        "field": "Age",
+        "type": "ordinal",
+        "title": "Month age"
+      },
+      {
+        "field": "Eligible Cohort Users",
+        "type": "quantitative",
+        "format": ",.0f",
+        "title": "Cohort users"
+      },
+      {
+        "field": "Retained Users",
+        "type": "quantitative",
+        "format": ",.0f"
+      },
+      {
+        "field": "Retention Rate",
+        "type": "quantitative",
+        "format": ".1%"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "cornerRadius": 6,
+        "stroke": "#161D44",
+        "strokeWidth": 6
+      },
+      "encoding": {
+        "color": {
+          "field": "Retention Rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              1
+            ],
+            "range": [
+              "#27345E",
+              "#BCECF7"
+            ]
+          },
+          "legend": {
+            "title": "Retention",
+            "format": ".0%",
+            "orient": "bottom"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "font": "Segoe UI",
+        "fontSize": 26,
+        "fontWeight": "bold"
+      },
+      "encoding": {
+        "text": {
+          "field": "Retention Rate",
+          "type": "quantitative",
+          "format": ".0%"
+        },
+        "color": {
+          "condition": {
+            "test": "datum[\"Retention Rate\"] > 0.5",
+            "value": "#101534"
+          },
+          "value": "#FFFFFF"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelColor": "#E7EEFF",
+      "titleColor": "#E7EEFF",
+      "labelFont": "Segoe UI",
+      "titleFont": "Segoe UI",
+      "labelFontSize": 22,
+      "titleFontSize": 24,
+      "grid": false,
+      "domain": false,
+      "ticks": false,
+      "labelPadding": 14,
+      "titlePadding": 20
+    },
+    "legend": {
+      "labelColor": "#E7EEFF",
+      "titleColor": "#E7EEFF",
+      "labelFontSize": 18,
+      "titleFontSize": 20
+    }
+  }
+}

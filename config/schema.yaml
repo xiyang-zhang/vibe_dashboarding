@@ -1,0 +1,11 @@
+{
+  "tables": {
+    "Users": {"primary_key": "UserId", "columns": {"UserId": "int64", "Segment": "string", "SignupDate": "date"}},
+    "Date": {"primary_key": "Date", "columns": {"Date": "date", "Year": "int64", "Month": "int64", "MonthName": "string"}},
+    "Events": {"primary_key": "EventId", "columns": {"EventId": "int64", "UserId": "int64", "Date": "date", "Converted": "int64", "RevenueCents": "int64", "SessionMinutes": "double"}, "nullable": ["SessionMinutes"]}
+  },
+  "relationships": [
+    {"from_table": "Events", "from_column": "UserId", "to_table": "Users", "to_column": "UserId", "cardinality": "many-to-one"},
+    {"from_table": "Events", "from_column": "Date", "to_table": "Date", "to_column": "Date", "cardinality": "many-to-one"}
+  ]
+}

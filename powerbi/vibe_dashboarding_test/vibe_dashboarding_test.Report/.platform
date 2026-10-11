@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "vibe_dashboarding_test"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "b0457a7a-34d7-4432-bdf9-a937a1f844e3"
+  }
+}
