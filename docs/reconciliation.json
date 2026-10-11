@@ -1,0 +1,11 @@
+{
+  "revenue": 1627.47,
+  "active_users": 114,
+  "conversions": 95,
+  "sessions": 900,
+  "conversion_rate": 0.10555555555555556,
+  "arpu": 14.276052631578947,
+  "session_length": 13.090076923076923,
+  "additive_reconciliation": true,
+  "distinct_users_are_non_additive": true
+}

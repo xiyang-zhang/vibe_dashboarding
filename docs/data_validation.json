@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "errors": [],
+  "totals": {
+    "revenue": 1627.47,
+    "active_users": 114,
+    "conversions": 95,
+    "sessions": 900,
+    "conversion_rate": 0.10555555555555556,
+    "arpu": 14.276052631578947,
+    "session_length": 13.090076923076923,
+    "additive_reconciliation": true,
+    "distinct_users_are_non_additive": true
+  },
+  "scenario_checks": [
+    {
+      "check": "Standard conversion distribution",
+      "observations": 682,
+      "expected": 54.56,
+      "actual": 55,
+      "tolerance": 35.42428545503776,
+      "status": "PASS"
+    },
+    {
+      "check": "Premium conversion distribution",
+      "observations": 218,
+      "expected": 43.6,
+      "actual": 40,
+      "tolerance": 29.5296461204668,
+      "status": "PASS"
+    },
+    {
+      "check": "date trend/seasonality allocation",
+      "expected": 420.21375810417294,
+      "actual": 418,
+      "tolerance": 74.83551960312757,
+      "status": "PASS"
+    }
+  ]
+}

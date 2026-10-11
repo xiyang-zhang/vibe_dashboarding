@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "scope": "repository scaffold and local data checks only",
+  "checks": {
+    "data": "PASS",
+    "PBIP reports": "NOT APPLICABLE — setup only",
+    "TMDL/DAX engine": "NOT VERIFIED",
+    "refresh/connectivity": "NOT VERIFIED",
+    "Desktop/rendering": "NOT VERIFIED",
+    "Deneb official schema/rendering": "NOT VERIFIED"
+  },
+  "errors": [],
+  "warnings": []
+}
