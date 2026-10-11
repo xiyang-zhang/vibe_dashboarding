@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "scope": "repository scaffold and local data checks only",
+  "checks": {
+    "data": "PASS",
+    "C:\\Users\\alvin\\Documents\\DS_Projects\\vibe_dashboard_2026\\powerbi\\vibe_dashboarding_test\\vibe_dashboarding_test.Report:official-schema": "PASS",
+    "PBIP reports": "LOCAL CHECKS RUN",
+    "TMDL/DAX engine": "NOT VERIFIED",
+    "refresh/connectivity": "NOT VERIFIED",
+    "Desktop/rendering": "NOT VERIFIED",
+    "Deneb official schema/rendering": "NOT VERIFIED"
+  },
+  "errors": [],
+  "warnings": []
+}

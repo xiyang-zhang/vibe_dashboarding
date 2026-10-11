@@ -1,0 +1,15 @@
+relationship vibe_relationship_0
+	fromColumn: Events.UserId
+	toColumn: Users.UserId
+
+relationship vibe_relationship_1
+	fromColumn: Events.Date
+	toColumn: Date.Date
+
+relationship vibe_relationship_2
+	fromColumn: CohortActivity.UserId
+	toColumn: Users.UserId
+
+relationship vibe_relationship_3
+	fromColumn: CohortActivity.Age
+	toColumn: CohortAge.Age

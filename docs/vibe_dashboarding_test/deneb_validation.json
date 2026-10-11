@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "compiler": "5.23.0",
+  "warnings": [],
+  "compiledMarks": 2,
+  "in_report_rendering": "NOT VERIFIED"
+}

@@ -1,0 +1,45 @@
+{
+  "measures": [
+    {
+      "name": "Sessions",
+      "table": "Events",
+      "dax": "COUNTROWS(Events)",
+      "format": "#,##0",
+      "folder": "Activity",
+      "contract": "Eligible event sessions in current filter."
+    },
+    {
+      "name": "Cohort Size",
+      "table": "Users",
+      "dax": "COUNTROWS(Users)",
+      "format": "#,##0",
+      "folder": "Retention",
+      "contract": "All enrolled users in selected cohort and segment."
+    },
+    {
+      "name": "Eligible Cohort Users",
+      "table": "CohortActivity",
+      "dax": "CALCULATE(DISTINCTCOUNT(CohortActivity[UserId]), REMOVEFILTERS('Date'))",
+      "format": "#,##0",
+      "folder": "Retention",
+      "contract": "Distinct enrolled users with an observed age cell; excludes future cohort-age combinations."
+    },
+    {
+      "name": "Retained Users",
+      "table": "CohortActivity",
+      "dax": "VAR Eligible = [Eligible Cohort Users] RETURN IF(ISBLANK(Eligible), BLANK(), COALESCE(CALCULATE(DISTINCTCOUNT(CohortActivity[UserId]), CohortActivity[Active] = 1, REMOVEFILTERS('Date')), 0))",
+      "format": "#,##0",
+      "folder": "Retention",
+      "contract": "Distinct cohort users active in observed age months; zero if observed but inactive, blank if future."
+    },
+    {
+      "name": "Retention Rate",
+      "table": "CohortActivity",
+      "dax": "DIVIDE([Retained Users], [Eligible Cohort Users])",
+      "format": "0.0%",
+      "folder": "Retention",
+      "contract": "Distinct retained population / distinct eligible cohort population; totals recompute both sets."
+    }
+  ],
+  "cohort_contract": "Signup-month cohort; distinct activity in calendar month of age; future cells blank; segment filters both sets; fixed 2026-06-30 cutoff."
+}

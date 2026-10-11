@@ -1,0 +1,45 @@
+/// Synthetic Data — For Demonstration Only; CohortActivity local Import table.
+table CohortActivity
+
+	/// Distinct enrolled users with an observed age cell; excludes future cohort-age combinations.
+	measure 'Eligible Cohort Users' = CALCULATE(DISTINCTCOUNT(CohortActivity[UserId]), REMOVEFILTERS('Date'))
+		formatString: #,##0
+		displayFolder: Retention
+
+	/// Distinct cohort users active in observed age months; zero if observed but inactive, blank if future.
+	measure 'Retained Users' = VAR Eligible = [Eligible Cohort Users] RETURN IF(ISBLANK(Eligible), BLANK(), COALESCE(CALCULATE(DISTINCTCOUNT(CohortActivity[UserId]), CohortActivity[Active] = 1, REMOVEFILTERS('Date')), 0))
+		formatString: #,##0
+		displayFolder: Retention
+
+	/// Distinct retained population / distinct eligible cohort population; totals recompute both sets.
+	measure 'Retention Rate' = DIVIDE([Retained Users], [Eligible Cohort Users])
+		formatString: 0.0%
+		displayFolder: Retention
+
+	column UserId
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: UserId
+
+	column Age
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Age
+
+	column Active
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Active
+
+	partition CohortActivity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(pMockDataRoot & "/CohortActivity.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"UserId", Int64.Type}, {"Age", Int64.Type}, {"Active", Int64.Type}}, "en-US")
+				in
+				    Typed

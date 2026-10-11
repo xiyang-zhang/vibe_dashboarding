@@ -1,0 +1,41 @@
+/// Synthetic Data — For Demonstration Only; Users local Import table.
+table Users
+
+	/// All enrolled users in selected cohort and segment.
+	measure 'Cohort Size' = COUNTROWS(Users)
+		formatString: #,##0
+		displayFolder: Retention
+
+	column UserId
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: UserId
+
+	column Segment
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Segment
+
+	column SignupDate
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		summarizeBy: none
+		sourceColumn: SignupDate
+
+	column SignupCohort
+		dataType: dateTime
+		formatString: MMM yyyy
+		summarizeBy: none
+		sourceColumn: SignupCohort
+
+	partition Users = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(pMockDataRoot & "/Users.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"UserId", Int64.Type}, {"Segment", type text}, {"SignupDate", type date}}, "en-US")
+				    , Cohort = Table.AddColumn(Typed, "SignupCohort", each Date.StartOfMonth([SignupDate]), type date)
+				in
+				    Cohort

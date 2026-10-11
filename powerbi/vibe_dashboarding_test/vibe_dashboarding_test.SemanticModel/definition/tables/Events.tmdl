@@ -1,0 +1,84 @@
+/// Synthetic Data — For Demonstration Only; Events local Import table.
+table Events
+
+	/// Sum event revenue cents / 100; zero for nonconversion
+	measure Revenue = DIVIDE(SUM(Events[RevenueCents]), 100)
+		formatString: $#,##0.00
+		displayFolder: Revenue
+
+	/// Distinct event users in current filter; non-additive
+	measure 'Active Users' = DISTINCTCOUNT(Events[UserId])
+		formatString: #,##0
+		displayFolder: Activity
+
+	/// Converted eligible sessions
+	measure Conversions = SUM(Events[Converted])
+		formatString: #,##0
+		displayFolder: Conversion
+
+	/// Converted sessions / eligible sessions; blank if no sessions
+	measure 'Conversion Rate' = DIVIDE([Conversions], COUNTROWS(Events))
+		formatString: 0.0%
+		displayFolder: Conversion
+
+	/// Revenue / distinct active users; blank if no active users
+	measure ARPU = DIVIDE([Revenue], [Active Users])
+		formatString: $0.00
+		displayFolder: Revenue
+
+	/// Mean non-null session minutes
+	measure 'Session Length' = AVERAGE(Events[SessionMinutes])
+		formatString: 0.0
+		displayFolder: Activity
+
+	/// Eligible event sessions in current filter.
+	measure Sessions = COUNTROWS(Events)
+		formatString: #,##0
+		displayFolder: Activity
+
+	column EventId
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: EventId
+
+	column UserId
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: UserId
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-MM-dd
+		summarizeBy: none
+		sourceColumn: Date
+
+	column Converted
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: Converted
+
+	column RevenueCents
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: RevenueCents
+
+	column SessionMinutes
+		dataType: double
+		isHidden
+		summarizeBy: none
+		sourceColumn: SessionMinutes
+
+	partition Events = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(pMockDataRoot & "/Events.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"EventId", Int64.Type}, {"UserId", Int64.Type}, {"Date", type date}, {"Converted", Int64.Type}, {"RevenueCents", Int64.Type}, {"SessionMinutes", type number}}, "en-US")
+				in
+				    Typed

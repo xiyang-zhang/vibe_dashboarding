@@ -1,0 +1,36 @@
+{
+  "disclosure": "Synthetic Data — For Demonstration Only",
+  "generation": {
+    "seed": 42,
+    "users": 1200,
+    "events": 18000,
+    "start": "2026-01-01",
+    "end": "2026-06-30",
+    "granularity": "monthly",
+    "growth": 0.35,
+    "weekend_multiplier": 0.7,
+    "session_null_rate": 0.02,
+    "segments": {
+      "Standard": {
+        "weight": 0.75,
+        "conversion_rate": 0.08,
+        "spend_multiplier": 1.0
+      },
+      "Premium": {
+        "weight": 0.25,
+        "conversion_rate": 0.2,
+        "spend_multiplier": 1.6
+      }
+    },
+    "anomalies": {
+      "2026-02-14": 2.0
+    }
+  },
+  "rows": {
+    "Users": 1200,
+    "Date": 181,
+    "Events": 18000,
+    "CohortActivity": 4180,
+    "CohortAge": 6
+  }
+}

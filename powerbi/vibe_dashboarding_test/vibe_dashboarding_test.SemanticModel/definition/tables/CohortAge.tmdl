@@ -1,0 +1,17 @@
+/// Synthetic Data — For Demonstration Only; CohortAge local Import table.
+table CohortAge
+
+	column Age
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: Age
+
+	partition CohortAge = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(pMockDataRoot & "/CohortAge.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"Age", Int64.Type}}, "en-US")
+				in
+				    Typed
