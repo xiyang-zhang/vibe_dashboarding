@@ -1,0 +1,5 @@
+{
+  "name": "Synthetic Preview",
+  "dataColors": ["#2563EB", "#0D9488", "#F59E0B", "#8B5CF6", "#DC2626"],
+  "background": "#F8FAFC", "foreground": "#0F172A", "tableAccent": "#2563EB"
+}

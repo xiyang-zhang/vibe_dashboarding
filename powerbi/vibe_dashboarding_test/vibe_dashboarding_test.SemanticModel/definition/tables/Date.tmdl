@@ -1,0 +1,54 @@
+/// Synthetic Data — For Demonstration Only; Date local Import table.
+table Date
+	lineageTag: 2fb1488d-50cb-47f7-954c-0c87c949b54c
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-MM-dd
+		lineageTag: 4c04eed4-c238-49a4-808d-468b93aabc69
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		lineageTag: dd230eb3-af6b-44e8-9aaa-957ae630dd96
+		summarizeBy: none
+		sourceColumn: Year
+
+	column Month
+		dataType: int64
+		lineageTag: 99b9ea82-37d9-4cf9-9a94-adf72c63d432
+		summarizeBy: none
+		sourceColumn: Month
+
+	column MonthName
+		dataType: string
+		lineageTag: 7c197d91-fa67-4950-861f-18c60372f8e1
+		summarizeBy: none
+		sourceColumn: MonthName
+		sortByColumn: Month
+
+	column MonthStart
+		dataType: dateTime
+		formatString: MMM yyyy
+		lineageTag: 4602bddf-aab2-4ed1-907d-1fd8a80ca90c
+		summarizeBy: none
+		sourceColumn: MonthStart
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition Date = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(pMockDataRoot & "/Date.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"Date", type date}, {"Year", Int64.Type}, {"Month", Int64.Type}, {"MonthName", type text}}, "en-US")
+				    , Months = Table.AddColumn(Typed, "MonthStart", each Date.StartOfMonth([Date]), type date)
+				in
+				    Months
+

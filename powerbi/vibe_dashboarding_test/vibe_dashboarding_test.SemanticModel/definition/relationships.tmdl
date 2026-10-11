@@ -1,0 +1,26 @@
+relationship vibe_relationship_0
+	fromColumn: Events.UserId
+	toColumn: Users.UserId
+
+relationship vibe_relationship_1
+	fromColumn: Events.Date
+	toColumn: Date.Date
+
+relationship vibe_relationship_2
+	fromColumn: CohortActivity.UserId
+	toColumn: Users.UserId
+
+relationship vibe_relationship_3
+	fromColumn: CohortActivity.Age
+	toColumn: CohortAge.Age
+
+relationship 6058958c-b563-4813-bcea-61c98b8ba88c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Users.SignupDate
+	toColumn: LocalDateTable_170c2d2f-9e4d-4d4e-836c-7e21fe76cd28.Date
+
+relationship ffce92e5-5a74-4f77-a5e4-1af78ea32c06
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Users.SignupCohort
+	toColumn: LocalDateTable_6a46eeed-fa84-421c-aa6e-228d25e35f25.Date
+

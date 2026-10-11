@@ -1,0 +1,10 @@
+{
+  "measures": [
+    {"name": "Revenue", "table": "Events", "dax": "DIVIDE(SUM(Events[RevenueCents]), 100)", "format": "$#,##0.00", "folder": "Revenue", "grain": "event", "contract": "Sum event revenue cents / 100; zero for nonconversion", "oracle": "revenue"},
+    {"name": "Active Users", "table": "Events", "dax": "DISTINCTCOUNT(Events[UserId])", "format": "#,##0", "folder": "Activity", "grain": "user in date filter", "contract": "Distinct event users in current filter; non-additive", "oracle": "active_users"},
+    {"name": "Conversions", "table": "Events", "dax": "SUM(Events[Converted])", "format": "#,##0", "folder": "Conversion", "grain": "event", "contract": "Converted eligible sessions", "oracle": "conversions"},
+    {"name": "Conversion Rate", "table": "Events", "dax": "DIVIDE([Conversions], COUNTROWS(Events))", "format": "0.0%", "folder": "Conversion", "grain": "event", "contract": "Converted sessions / eligible sessions; blank if no sessions", "oracle": "conversion_rate"},
+    {"name": "ARPU", "table": "Events", "dax": "DIVIDE([Revenue], [Active Users])", "format": "$0.00", "folder": "Revenue", "grain": "active user", "contract": "Revenue / distinct active users; blank if no active users", "oracle": "arpu"},
+    {"name": "Session Length", "table": "Events", "dax": "AVERAGE(Events[SessionMinutes])", "format": "0.0", "folder": "Activity", "grain": "session", "contract": "Mean non-null session minutes", "oracle": "session_length"}
+  ]
+}

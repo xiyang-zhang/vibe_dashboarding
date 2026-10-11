@@ -1,0 +1,182 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "77d45e1849e85604910a",
+  "displayName": "Cohort Retention",
+  "displayOption": "FitToPage",
+  "height": 1463,
+  "width": 2560,
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#10103E'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          },
+          "image": {
+            "image": {
+              "name": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'template_1.jpg'"
+                  }
+                }
+              },
+              "url": {
+                "expr": {
+                  "ResourcePackageItem": {
+                    "PackageName": "RegisteredResources",
+                    "PackageType": 1,
+                    "ItemName": "template_1.jpg"
+                  }
+                }
+              },
+              "scaling": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'Fit'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "backgroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#161D44'"
+                  }
+                }
+              }
+            }
+          },
+          "foregroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#FFFFFF'"
+                  }
+                }
+              }
+            }
+          },
+          "inputBoxColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#212B53'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "filterCard": [
+      {
+        "selector": {
+          "id": "Available"
+        },
+        "properties": {
+          "backgroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#212B53'"
+                  }
+                }
+              }
+            }
+          },
+          "foregroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#FFFFFF'"
+                  }
+                }
+              }
+            }
+          },
+          "inputBoxColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#161D44'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "selector": {
+          "id": "Applied"
+        },
+        "properties": {
+          "backgroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#212B53'"
+                  }
+                }
+              }
+            }
+          },
+          "foregroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#FFFFFF'"
+                  }
+                }
+              }
+            }
+          },
+          "inputBoxColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#161D44'"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

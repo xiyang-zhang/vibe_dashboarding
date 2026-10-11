@@ -1,0 +1,4 @@
+interface:
+  display_name: "Power BI Preview Builder"
+  short_description: "Build and validate synthetic Power BI previews"
+  default_prompt: "Use $powerbi-preview-builder to prepare a reproducible Power BI dashboard preview with synthetic data and validation evidence."

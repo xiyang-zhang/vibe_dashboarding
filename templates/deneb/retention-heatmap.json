@@ -1,0 +1,11 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"name": "dataset"},
+  "mark": {"type": "rect", "tooltip": true},
+  "encoding": {
+    "x": {"field": "CohortAge", "type": "ordinal", "title": "Periods since signup"},
+    "y": {"field": "Cohort", "type": "ordinal", "title": "Signup cohort"},
+    "color": {"field": "Retention", "type": "quantitative", "scale": {"domain": [0, 1], "range": ["#EFF6FF", "#2563EB"]}, "legend": {"format": ".0%"}},
+    "tooltip": [{"field": "Cohort"}, {"field": "CohortAge"}, {"field": "Retention", "format": ".1%"}]
+  }
+}

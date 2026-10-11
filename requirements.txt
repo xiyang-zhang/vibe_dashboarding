@@ -1,0 +1,4 @@
+numpy>=1.26,<3
+pandas>=2.2,<4
+jsonschema>=4.21,<5
+# Optional: PyYAML for non-JSON YAML, Faker for names, pyarrow for Parquet.

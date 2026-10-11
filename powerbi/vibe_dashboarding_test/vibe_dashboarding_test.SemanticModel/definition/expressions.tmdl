@@ -1,0 +1,5 @@
+expression pMockDataRoot = "C:/PowerBI/vibe_dashboard_2026/data/vibe_dashboarding_test" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: fac49508-0633-4568-9d70-93efb3fa2c5a
+
+	annotation PBI_ResultType = Text
+

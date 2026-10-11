@@ -1,0 +1,50 @@
+{
+  "name": "VibeNavy-736fa192.json",
+  "dataColors": [
+    "#FF7A45",
+    "#61D8F5",
+    "#80E2BA",
+    "#C5A8FF",
+    "#F5C769"
+  ],
+  "foreground": "#FFFFFF",
+  "foregroundNeutralSecondary": "#D3DEF6",
+  "foregroundNeutralTertiary": "#C4D0EF",
+  "background": "#161D44",
+  "backgroundLight": "#27345E",
+  "backgroundNeutral": "#212B53",
+  "tableAccent": "#61D8F5",
+  "textClasses": {
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 18,
+      "color": "#FFFFFF"
+    },
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 22,
+      "color": "#FFFFFF"
+    },
+    "callout": {
+      "fontFace": "Segoe UI",
+      "fontSize": 28,
+      "color": "#FFFFFF"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 20,
+      "color": "#FFFFFF"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ]
+      }
+    }
+  }
+}

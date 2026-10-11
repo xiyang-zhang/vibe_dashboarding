@@ -1,0 +1,101 @@
+/// Synthetic Data — For Demonstration Only; Events local Import table.
+table Events
+	lineageTag: 4a2d86ee-9265-42d9-a83b-571331452615
+
+	/// Sum event revenue cents / 100; zero for nonconversion
+	measure Revenue = DIVIDE(SUM(Events[RevenueCents]), 100)
+		formatString: $#,##0.00
+		displayFolder: Revenue
+		lineageTag: d251db77-d631-474b-b74d-af6ae9fad501
+
+	/// Distinct event users in current filter; non-additive
+	measure 'Active Users' = DISTINCTCOUNT(Events[UserId])
+		formatString: #,##0
+		displayFolder: Activity
+		lineageTag: b3d009ca-08e5-425f-8c03-3f5f2f84aced
+
+	/// Converted eligible sessions
+	measure Conversions = SUM(Events[Converted])
+		formatString: #,##0
+		displayFolder: Conversion
+		lineageTag: 7ec57b38-92b9-4ce2-9187-e1abe0774a3e
+
+	/// Converted sessions / eligible sessions; blank if no sessions
+	measure 'Conversion Rate' = DIVIDE([Conversions], COUNTROWS(Events))
+		formatString: 0.0%
+		displayFolder: Conversion
+		lineageTag: 3325fb17-0c29-4cb9-800c-e1d8c1dff888
+
+	/// Revenue / distinct active users; blank if no active users
+	measure ARPU = DIVIDE([Revenue], [Active Users])
+		formatString: $0.00
+		displayFolder: Revenue
+		lineageTag: d9d9d2e4-5252-4678-b793-9e4ac2e171aa
+
+	/// Mean non-null session minutes
+	measure 'Session Length' = AVERAGE(Events[SessionMinutes])
+		formatString: 0.0
+		displayFolder: Activity
+		lineageTag: 1f7aee9d-cbcb-4b32-8789-c8ea538e9f30
+
+	/// Eligible event sessions in current filter.
+	measure Sessions = COUNTROWS(Events)
+		formatString: #,##0
+		displayFolder: Activity
+		lineageTag: 7a01bca9-8dfa-4a33-b996-2f08c9fc21e1
+
+	column EventId
+		dataType: int64
+		isHidden
+		lineageTag: 569e1bba-8ff1-41cd-b505-9fd63d2ab202
+		summarizeBy: none
+		sourceColumn: EventId
+
+	column UserId
+		dataType: int64
+		isHidden
+		lineageTag: 78be4c85-9ea0-4471-9822-30d0d1523df3
+		summarizeBy: none
+		sourceColumn: UserId
+
+	column Date
+		dataType: dateTime
+		isHidden
+		formatString: yyyy-MM-dd
+		lineageTag: cd02bf11-47ab-45c1-8447-2bb4543b7d50
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Converted
+		dataType: int64
+		isHidden
+		lineageTag: 6c5d30d3-80d9-465a-bed3-610d3977204a
+		summarizeBy: none
+		sourceColumn: Converted
+
+	column RevenueCents
+		dataType: int64
+		isHidden
+		lineageTag: ec098b87-55a1-4eff-b812-1b14c06046e8
+		summarizeBy: none
+		sourceColumn: RevenueCents
+
+	column SessionMinutes
+		dataType: double
+		isHidden
+		lineageTag: 7e881be8-df67-4b72-b7d5-e8b679a66cc6
+		summarizeBy: none
+		sourceColumn: SessionMinutes
+
+	partition Events = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(pMockDataRoot & "/Events.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    Typed = Table.TransformColumnTypes(Headers, {{"EventId", Int64.Type}, {"UserId", Int64.Type}, {"Date", type date}, {"Converted", Int64.Type}, {"RevenueCents", Int64.Type}, {"SessionMinutes", type number}}, "en-US")
+				in
+				    Typed
+
