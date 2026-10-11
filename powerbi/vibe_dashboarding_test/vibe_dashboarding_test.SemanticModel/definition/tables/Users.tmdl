@@ -1,33 +1,53 @@
 /// Synthetic Data — For Demonstration Only; Users local Import table.
 table Users
+	lineageTag: 3c5f290d-9976-4dff-a243-15e64e93d141
 
 	/// All enrolled users in selected cohort and segment.
 	measure 'Cohort Size' = COUNTROWS(Users)
 		formatString: #,##0
 		displayFolder: Retention
+		lineageTag: 91015f16-e8e1-4473-a155-51883073ef5e
 
 	column UserId
 		dataType: int64
 		isHidden
+		lineageTag: 65bc69ca-024d-4bdf-9ae1-bfc275ded72f
 		summarizeBy: none
 		sourceColumn: UserId
 
 	column Segment
 		dataType: string
+		lineageTag: b474ddff-c737-45f3-8492-f7a033aebfb0
 		summarizeBy: none
 		sourceColumn: Segment
 
 	column SignupDate
 		dataType: dateTime
 		formatString: yyyy-MM-dd
+		lineageTag: fbfa3329-273c-42cb-acc9-3db725b54aaf
 		summarizeBy: none
 		sourceColumn: SignupDate
+
+		variation Variation
+			isDefault
+			relationship: 6058958c-b563-4813-bcea-61c98b8ba88c
+			defaultHierarchy: LocalDateTable_170c2d2f-9e4d-4d4e-836c-7e21fe76cd28.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	column SignupCohort
 		dataType: dateTime
 		formatString: MMM yyyy
+		lineageTag: 8ee1ece3-8952-465f-93f7-f61a9b268753
 		summarizeBy: none
 		sourceColumn: SignupCohort
+
+		variation Variation
+			isDefault
+			relationship: ffce92e5-5a74-4f77-a5e4-1af78ea32c06
+			defaultHierarchy: LocalDateTable_6a46eeed-fa84-421c-aa6e-228d25e35f25.'Date Hierarchy'
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition Users = m
 		mode: import
@@ -39,3 +59,4 @@ table Users
 				    , Cohort = Table.AddColumn(Typed, "SignupCohort", each Date.StartOfMonth([SignupDate]), type date)
 				in
 				    Cohort
+

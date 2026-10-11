@@ -1,2 +1,3 @@
-database vibe_dashboarding_test
-	compatibilityLevel: 1604
+database
+	compatibilityLevel: 1606
+

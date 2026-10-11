@@ -1,0 +1,9 @@
+# Synthetic data contracts
+
+The shipped sample is an event-grain activity fixture, not a business requirement. `schema.yaml` declares tables/columns/types/PK/FK; `metrics.yaml` declares DAX and Python reconciliation contracts; `dashboard.yaml` declares canvas and scenario settings.
+
+`generate_mock_data.py` supports daily, Monday-anchored weekly, and month-start reporting buckets. The Date table remains daily and contiguous; the Events table contains actual event dates. DAU/WAU/MAU therefore remain computable at their true windows. User enrollment dates constrain event eligibility. Sessions are lognormal; segment differences, weekday seasonality, growth, configured anomalies, and bounded conversion are supported. Revenue is in cents to avoid inconsistent monetary rounding. Null session lengths are optional; key fields never become null. Sample cohort retention requires deriving active users per enrollment cohort and period from Events and Users; do not invent retention from aggregate sessions.
+
+Add schema-specific generators to `previewlib.py` for new business entities; reject unsupported schemas rather than pretending to generate arbitrary contracts. Validate PK/FK/nullability/dtypes, conversion eligibility, zero revenue on nonconversions, date ranges, positive session lengths, and count/revenue reconciliation. Optional Parquet uses pyarrow. Faker is optional when realistic synthetic names are useful; do not add personal-looking names to anonymous user fixtures without need.
+
+Metric additions need units, grain, numerator/denominator, population, date context, null policy, format, DAX, and a reconciliation oracle. Ratios use weighted populations; distinct users are evaluated on event sets. Configure scenarios explicitly and document expected trends and tolerances; statistically noisy fixtures should not be forced to monotonically increase.

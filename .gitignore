@@ -28,3 +28,7 @@ docs/model_authoring_inputs.json
 .tools/
 node_modules/
 .pnpm-store/
+
+# Restored upstream skills (see apm.yml)
+.agents/skills/powerbi-report-cli/
+.agents/skills/semantic-model-authoring/
