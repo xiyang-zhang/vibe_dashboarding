@@ -11,10 +11,22 @@ Open [vibe_dashboarding_test.pbip](powerbi/vibe_dashboarding_test/vibe_dashboard
 | Page | Preview |
 | --- | --- |
 | Performance | Revenue, active users, conversions, conversion rate, trends and segment comparisons |
-| Engagement | ARPU, session length, sessions, activity trends and monthly summaries |
+| Engagement | Session length, sessions, conversions, activity trends and monthly summaries |
 | Cohort Retention | Signup enrollment, eligible populations and Deneb retention heatmap |
 
-The PBIP is the interactive dashboard preview. Rendered screenshots are supplementary and require a reachable Desktop preview bridge.
+The PBIP is the interactive dashboard preview. These screenshots were captured from that project in Power BI Desktop and reviewed on October 10, 2026. They show the saved demonstration with all slicers selected.
+
+### Performance
+
+![Performance dashboard](docs/previews/Performance.png)
+
+### Engagement
+
+![Engagement dashboard](docs/previews/Engagement.png)
+
+### Cohort Retention
+
+![Cohort retention dashboard](docs/previews/Cohort%20Retention.png)
 
 ## Data and metrics
 
@@ -68,8 +80,9 @@ python scripts/validate_project.py
 powerbi-report-author validate powerbi/vibe_dashboarding_test/vibe_dashboarding_test.Report
 ```
 
-The original build passed 14 unit tests, local reconciliation, Microsoft TMDL parsing and Deneb schema/compilation checks. Official PBIR validation also passed on the Desktop-saved report with zero errors and warnings. These checks do not establish Import refresh, DAX engine correctness or rendered appearance. See [validation evidence](docs/vibe_dashboarding_test/validation_report.md). The user reviewed the result; agent refresh, DAX and rendered screenshot checks require separate evidence.
+The original build passed 14 unit tests, local reconciliation, Microsoft TMDL parsing and Deneb schema/compilation checks. Official PBIR validation also passed on the Desktop-saved report with zero errors and warnings. These checks do not establish Import refresh, DAX engine correctness or rendered appearance. See [validation evidence](docs/vibe_dashboarding_test/validation_report.md). The user reviewed the result; all three pages were subsequently captured and visually reviewed by the agent. Import refresh and direct DAX-engine reconciliation remain NOT VERIFIED.
 
 `build_vibe_data_model.py` and `build_vibe_report.cjs` reproduce the seed baseline and overwrite generated model/report files. Use a separate copy or deliberate branch before regeneration. The original `validate_vibe_model.ps1` serializes the model and assumes the baseline table count; do not run it unchanged against Desktop-added date tables.
 
 Version source, configurations, specifications and synthetic fixtures. Exclude credentials, caches and downloaded tools. Binary PBIX files are preserved locally; the PBIP is the canonical Git artifact.
+
