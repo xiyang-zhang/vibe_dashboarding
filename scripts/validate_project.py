@@ -128,11 +128,11 @@ def main():
         warnings.extend(report_warnings)
         if command:
             result = subprocess.run([command, "validate", str(report)], capture_output=True, text=True)
-            checks[str(report)+":official-schema"] = "PASS" if result.returncode == 0 else "FAIL"
+            checks[report.relative_to(root).as_posix()+":official-schema"] = "PASS" if result.returncode == 0 else "FAIL"
             if result.returncode:
                 errors.append(result.stdout + result.stderr)
         else:
-            checks[str(report)+":official-schema"] = "NOT VERIFIED"
+            checks[report.relative_to(root).as_posix()+":official-schema"] = "NOT VERIFIED"
     for project in (root/"powerbi").rglob("*.pbip"):
         for artifact in load(project).get("artifacts", []):
             if "report" in artifact and not (project.parent/artifact["report"]["path"]/"definition.pbir").exists():

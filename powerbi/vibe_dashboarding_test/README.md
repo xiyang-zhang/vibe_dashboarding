@@ -2,7 +2,7 @@
 
 Synthetic Data — For Demonstration Only
 
-Open `vibe_dashboarding_test.pbip` in Power BI Desktop, enable the PBIP/PBIR preview features if required by your Desktop version, and refresh the Import model. The model's `pMockDataRoot` parameter currently points to this repository's `data/vibe_dashboarding_test` directory. Update it when moving the repository. The report uses the certified AppSource Deneb visual; Desktop must be able to resolve that visual when opening the project.
+Open `vibe_dashboarding_test.pbip` in Power BI Desktop, enable the PBIP/PBIR preview features if required by your Desktop version, and refresh the Import model. Before refreshing, set `pMockDataRoot` to your checkout's `data/vibe_dashboarding_test` directory. The committed default is the generic `C:/PowerBI/vibe_dashboard_2026/data/vibe_dashboarding_test` path to avoid exposing a workstation username. Keep machine-specific parameter values and validation outputs local; review exported model files before committing them. The report uses the certified AppSource Deneb visual; Desktop must be able to resolve that visual when opening the project.
 
 Pages: **Performance**, **Engagement**, **Cohort Retention**. All pages use `template_1.jpg`, native slicers and page navigation. The first two pages include native KPI cards, companion monthly sparklines, trend and segment charts, and monthly matrices. The third page includes the Deneb retention heatmap, native cohort enrollment chart and retention population matrix.
 

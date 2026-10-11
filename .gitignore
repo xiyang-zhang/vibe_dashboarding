@@ -16,6 +16,9 @@ __pycache__/
 **/.pbi/unappliedChanges.json
 **/AutoRecovery/
 docs/model_authoring_inputs.json
+**/model_authoring_inputs.local.json
+**/pbir_validation.local.json
+**/preview_hosts.local.json
 
 # Local credentials
 .env
@@ -23,6 +26,9 @@ docs/model_authoring_inputs.json
 !.env.example
 *.pem
 *.key
+*.pfx
+*.p12
+*.credentials.json
 
 # Downloaded local authoring and validation dependencies
 .tools/
